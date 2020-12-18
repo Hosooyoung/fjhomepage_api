@@ -6,7 +6,7 @@ var mime = require('mime');
 var getDownloadFilename = require('./lib/Filename').getDownloadFilename;
 router.post('/DownloadFile_1', function(req, res, next) {
     //var upload_folder = 'C:/test/';
-    var file = './downloads/test12.xlsx';
+    var file = './downloads/fjbox_ui_manual.pdf';
     console.log('1');
     try {
         console.log('2');
