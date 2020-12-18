@@ -1,0 +1,102 @@
+{
+  "field_id": 1,
+  "name": "차광용커튼(스크린) 제어룰",
+  "groupname": "사용자정의",
+  "desc": "스크린 제어룰입니다. 여름철 2주기별 열림, 닫힘 설정이 가능한 룰입니다.",
+  "autoapplying": 0,
+  "sched": 0,
+  "constraints": {
+    "target": "field",
+    "devices": [
+      {
+        "class": "actuator",
+        "type": "retractable/level1",
+        "desc": "커튼1 (차광) 장비를 선택 하세요",
+        "optional": false,
+        "deviceid": 66,
+        "outputs": "#outdev_1",
+        "inputs": {
+          "key": "#indev_1",
+          "codes": [
+            0
+          ],
+          "names": [
+            "stat"
+          ],
+          "counts": [
+            1
+          ]
+        }
+      }
+    ],
+    "data": []
+  },
+  "configurations": {
+   "basic": [
+    {
+      "key": "#table",
+      "name": "스케쥴",
+      "values": {
+        "time": [
+          10000
+        ],
+        "cmd": [
+          202
+        ]
+      },
+      "type": "table",
+      "columns": [
+        {
+          "type": "time",
+          "name": "시간",
+          "key": "time"
+        },
+        {
+          "type": "cmd",
+          "name": "명령",
+          "key": "cmd"
+        }
+      ],
+      "description": "스케쥴 제어를 위한 설정을 입력합니다."
+    }
+  ],
+  "advanced": [
+    {
+      "key": "priority",
+      "name": "우선순위",
+      "value": 2,
+      "minmax": [
+        0,
+        5
+      ],
+      "description": "룰의 우선순위"
+    },
+    {
+      "key": "period",
+      "name": "기간",
+      "value": 60,
+      "description": "룰의 작동주기"
+    },
+    {
+      "key": "#worktime",
+      "name": "분무시간",
+      "value": 30,
+      "description": "분무 시간(초)을 설정합니다."
+    }
+  ],
+  "timespan": {
+    "id": 0,
+    "used": [
+      true
+    ]
+  }
+  },
+  "outputs": {},
+  "inputs": [
+    {
+      "key": "#indev_1.stat",
+      "dataid": 10006600,
+      "count": 1
+    }
+  ]
+}
