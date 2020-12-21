@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 const bcrypt = require('bcrypt');
-const mysql = require('mysql2/promise')
+const mysql = require('mysql')
 var connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
