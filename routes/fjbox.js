@@ -149,9 +149,9 @@ router.post('/check_pw', async function(req, res) {
             const query = 'select * from user where id=? and pw = password(?)'
             const [result] = await pool.query(query, [req.body.id, req.body.pw])
             if (result.length > 0) {
-                res.send({
+                res.json({
                     success: true
-                })
+                }).end()
             } else {
                 res.status(401).send()
             }
@@ -168,7 +168,7 @@ router.post('/mod_pw', async function(req, res) {
 
             res.json({
                 success: true
-            })
+            }).end()
 
         } catch (error) {
             console.log(error)
