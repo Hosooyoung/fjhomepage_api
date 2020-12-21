@@ -15,7 +15,6 @@ router.get('/', function(req, res, next) {
     res.send('respond with a resource');
 });
 
-/////////create account in DB//////
 router.post('/createAcc', function(req, res) {
     console.log('userB');
     const user = {
@@ -36,7 +35,7 @@ router.post('/createAcc', function(req, res) {
             });
             res.json({
                 createsuccess: true,
-                message: '가입신청성공 : 관리자의 승인 후 이용가능합니다.'
+                message: '가입신청완료 : 관리자의 승인 후 이용가능합니다.'
             })
         } else {
             res.json({
@@ -521,7 +520,7 @@ router.post('/reset_pw', function(req, res) {
     connection.query(sql, [encryptedPassword, req.body.id], (err, data) => {
         console.log(body.id);
         if (err) throw err;
-        res.send({ success: true, message: "초기화완료.\n초기화 비밀번호 > fjbox1234" });
+        res.send({ success: true, message: "초기화완료.\n초기화비밀번호 : fjbox1234" });
     })
 
 });
