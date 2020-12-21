@@ -12,7 +12,6 @@ var usersRouter = require('./routes/users');
 var infoRouter = require('./routes/info');
 var boardRouter = require('./routes/board');
 var mainRouter = require('./routes/main');
-const multer = require('multer');
 const cors = require('cors');
 var app = express();
 app.use(cors({ origin: true, credentials: true }));
@@ -25,9 +24,17 @@ var debug = require('debug')('svr:server');
 var connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
-    user: 'root',
-    password: 'admin',
-    database: 'vue_project'
+    user: 'farmos',
+    password: 'farmosv2@',
+    database: 'fjbox_homepage'
+});
+
+connection.connect(function(err) {
+    if (err) {
+        console.error('mysql connection error');
+        console.error(err);
+        throw err;
+    }
 });
 app.use(logger('dev'));
 app.use(express.json());
@@ -35,7 +42,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json());
-app.use('/index', indexRouter);
+app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/info', infoRouter);
 app.use('/board', boardRouter);
@@ -115,13 +122,6 @@ function onListening() {
 }
 
 ///////////////////////connect mysql///////////////////////////////////
-var connection = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'admin',
-    database: 'vue_project'
-});
 
 
 connection.connect(function(err) {
@@ -155,7 +155,7 @@ function check_sleep_and_dead() {
         for (i in list) {
             if (list[i].last_login != null) {
                 var login_term = (date1.getTime() - list[i].last_login.getTime()) / (1000 * 60 * 60 * 24);
-                if (login_term >= 90) {
+                if (login_term >= 364) {
                     connection.query('UPDATE users SET user_auth=2 where id=?', [list[i].id], function(err, row) {
                         if (err) throw err;
                         console.log("휴면적용대상 적용" + list[i].id);

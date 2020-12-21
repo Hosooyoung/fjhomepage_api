@@ -6,9 +6,9 @@ var mysql = require('mysql');
 var connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
-    user: 'root',
-    password: 'admin',
-    database: 'vue_project'
+    user: 'farmos',
+    password: 'farmosv2@',
+    database: 'fjbox_homepage'
 });
 /* GET users listing. */
 router.get('/', function(req, res, next) {
