@@ -121,25 +121,59 @@ router.post('/addDevice', async function(req, res) {
     })
     //////////////////사용자 입력////////////
 router.put('/addDevice', async function(req, res) {
-    try {
-        await logs(req, "add a user")
-        let query = 'select * from user where id = ?'
-        const [result] = await pool.query(query, [req.body.id])
-        if (result.length > 0) {
-            throw new Error("같은 id가 존재 합니다")
-        } else {
-            query = 'update user set id = ?, pw = password(?) where serial = ?'
-            const [updateResult] = await pool.query(query, [req.body.id, req.body.pw, req.body.serial])
-
-            if (updateResult.affectedRows === 1) {
-                res.status(200).end()
+        try {
+            await logs(req, "add a user")
+            let query = 'select * from user where id = ?'
+            const [result] = await pool.query(query, [req.body.id])
+            if (result.length > 0) {
+                throw new Error("같은 id가 존재 합니다")
             } else {
-                throw new Error("사용자 정보 입력 실패 하였습니다")
+                query = 'update user set id = ?, pw = password(?) where serial = ?'
+                const [updateResult] = await pool.query(query, [req.body.id, req.body.pw, req.body.serial])
+
+                if (updateResult.affectedRows === 1) {
+                    res.status(200).end()
+                } else {
+                    throw new Error("사용자 정보 입력 실패 하였습니다")
+                }
             }
+        } catch (error) {
+            console.log(error)
+            res.status(500).send(error)
         }
-    } catch (error) {
-        console.log(error)
-        res.status(500).send(error)
-    }
-})
+    })
+    //////////////////비밀번호 확인//////////////////
+
+router.post('/check_pw', async function(req, res) {
+        try {
+            const query = 'select * from user where id=? and pw = password(?)'
+            const [result] = await pool.query(query, [req.body.id, req.body.pw])
+            if (result.length > 0) {
+                res.send({
+                    success: true
+                })
+            } else {
+                res.status(401).send()
+            }
+        } catch (error) {
+            console.log(error)
+            res.status(500).send(error)
+        }
+    })
+    ///////////////////비밀번호 변경///////////////////////////
+router.post('/mod_pw', async function(req, res) {
+        try {
+            const query = 'update user set pw=password(?) from user where id = ? and pw = password(?)'
+            const [result] = await pool.query(query, [req.body.id, req.body.pw])
+
+            res.json({
+                success: true
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).send(error)
+        }
+    })
+    ///////////////////////////////////////////
 module.exports = router;
