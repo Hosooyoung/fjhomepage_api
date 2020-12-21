@@ -29,13 +29,6 @@ var connection = mysql.createConnection({
     database: 'fjbox_homepage'
 });
 
-connection.connect(function(err) {
-    if (err) {
-        console.error('mysql connection error');
-        console.error(err);
-        throw err;
-    }
-});
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
