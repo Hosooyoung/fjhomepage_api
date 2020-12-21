@@ -8,7 +8,7 @@ var pool = mysql.createPool({
     port: 3306,
     user: 'root',
     password: 'farmosv2@',
-    database: 'farmos_login',
+    database: 'fjbox_homepage',
     waitForConnections: true,
     connectionLimit: 10
 
