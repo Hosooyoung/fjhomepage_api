@@ -164,8 +164,8 @@ router.post('/check_pw', async function(req, res) {
 router.post('/mod_pw', async function(req, res) {
         try {
             const query = 'update user set pw=password(?) from user where id = ? and pw = password(?)'
-            await pool.query(query, [req.body.pw, req.body.id, req.body.before_pw])
-
+            const [result] = await pool.query(query, [req.body.pw, req.body.id, req.body.before_pw])
+            console.log(result);
             res.json({
                 success: true
             }).end()
