@@ -8,7 +8,9 @@ var pool = mysql.createPool({
     port: 3306,
     user: 'farmos',
     password: 'farmosv2@',
-    database: 'farmos_login'
+    database: 'farmos_login',
+    waitForConnections: true,
+    connectionLimit: 10
 
 });
 
@@ -24,7 +26,7 @@ async function logs(req, fname) {
         const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
         const content = { "functions": fname, "IP": ip, "req": req.body }
         const query = "insert into logs(logtime, content) values(now(), ?)"
-        const [result] = await pool.query(query, [JSON.stringify(content)])
+        const [result] = pool.query(query, [JSON.stringify(content)])
         if (result.affectedRows === 1) {
             return true
         } else {
