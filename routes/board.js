@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require('mysql');
+const mysql = require('mysql2/promise')
 const path = require("path");
 var fs = require('fs');
 const mime = require("mime-types")

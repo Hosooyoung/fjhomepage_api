@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const jwt = require('jsonwebtoken')
 const sharedSecret = 'jinong.co.kr&opensource'
-var mysql = require('mysql');
+const mysql = require('mysql2/promise')
 var pool = mysql.createPool({
     host: 'localhost',
     port: 3306,
