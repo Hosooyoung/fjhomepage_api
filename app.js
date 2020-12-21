@@ -7,7 +7,7 @@ const mysql = require('mysql2/promise')
 var session = require('express-session');
 var http = require('http');
 var bodyParser = require('body-parser');
-var indexRouter = require('./routes/index');
+var fjboxRouter = require('./routes/fjbox');
 var usersRouter = require('./routes/users');
 var infoRouter = require('./routes/info');
 var boardRouter = require('./routes/board');
@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json());
-app.use('/', indexRouter);
+app.use('/fjbox', fjboxRouter);
 app.use('/users', usersRouter);
 app.use('/info', infoRouter);
 app.use('/board', boardRouter);
