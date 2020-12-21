@@ -150,7 +150,8 @@ router.post('/check_pw', async function(req, res) {
             const [result] = await pool.query(query, [req.body.id, req.body.pw])
             if (result.length > 0) {
                 res.json({
-                    success: true
+                    success: true,
+                    serial: result[0].serial
                 }).end()
             } else {
                 res.status(401).send()
@@ -163,8 +164,8 @@ router.post('/check_pw', async function(req, res) {
     ///////////////////비밀번호 변경///////////////////////////
 router.post('/mod_pw', async function(req, res) {
         try {
-            const query = 'update user set pw=password(?) from user where id = ? '
-            const [result] = await pool.query(query, [req.body.pw, req.body.id])
+            const query = 'update user set pw=password(?) from user where serial = ? '
+            const [result] = await pool.query(query, [req.body.pw, req.body.serial])
             console.log(result);
             res.json({
                 success: true
