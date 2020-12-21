@@ -123,14 +123,14 @@ function onListening() {
 
 ///////////////////////connect mysql///////////////////////////////////
 
-
+/*
 connection.connect(function(err) {
     if (err) {
         console.error('mysql connection error');
         console.error(err);
         throw err;
     }
-});
+});*/
 
 ///////////////////////////////////////////////////////////////
 /*module.exports = () => {
