@@ -6,7 +6,7 @@ const mysql = require('mysql')
 var connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
-    user: 'farmos',
+    user: 'root',
     password: 'farmosv2@',
     database: 'fjbox_homepage'
 });
