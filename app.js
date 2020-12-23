@@ -32,7 +32,7 @@ var connection = mysql.createConnection({
     database: 'fjbox_homepage'
 });
 
-app.use('/', fjboxRouter);
+app.use('/fjbox', fjboxRouter);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
