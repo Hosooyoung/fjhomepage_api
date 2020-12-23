@@ -23,7 +23,7 @@ function makeToken(obj, expires) {
  */
 router.get('/', function(req, res) {
     //res.render("localhost:9090/main")
-    res.redirect('/main')
+    res.redirect('http://fjbox.jinong.co.kr/main')
 });
 async function logs(req, fname) {
     try {
