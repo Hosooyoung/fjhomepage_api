@@ -21,6 +21,10 @@ function makeToken(obj, expires) {
 /**
    로그남기기 함수
  */
+router.get('/', function(req, res) {
+    //res.render("localhost:9090/main")
+    res.redirect('/main')
+});
 async function logs(req, fname) {
     try {
         const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -97,30 +101,30 @@ router.post('/login', async function(req, res) {
         }
     })
     //////////////장비추가 //////////////////
-router.post('/addDevice', async function(req, res) {
-        try {
-            await logs(req, "add a device")
-            let query = 'select * from user where serial = ?'
-            const [result] = await pool.query(query, [req.body.serial])
-            if (result.length > 0) {
-                throw new Error("같은 serial이 존재 합니다")
-            } else {
-                query = 'insert into user (url, port, uuid, serial) values (?, ?, ?, ?)'
-                const [insertResult] = await pool.query(query, [req.body.url, req.body.port, req.body.uuid, req.body.serial])
-
-                if (insertResult.affectedRows === 1) {
-                    res.status(200).end()
+    /*router.post('/addDevice', async function(req, res) {
+            try {
+                await logs(req, "add a device")
+                let query = 'select * from user where serial = ?'
+                const [result] = await pool.query(query, [req.body.serial])
+                if (result.length > 0) {
+                    throw new Error("같은 serial이 존재 합니다")
                 } else {
-                    throw new Error("장비 추가 실패 하였습니다")
+                    query = 'insert into user (url, port, uuid, serial) values (?, ?, ?, ?)'
+                    const [insertResult] = await pool.query(query, [req.body.url, req.body.port, req.body.uuid, req.body.serial])
+
+                    if (insertResult.affectedRows === 1) {
+                        res.status(200).end()
+                    } else {
+                        throw new Error("장비 추가 실패 하였습니다")
+                    }
                 }
+            } catch (error) {
+                console.log(error)
+                res.status(500).send(error)
             }
-        } catch (error) {
-            console.log(error)
-            res.status(500).send(error)
-        }
-    })
+        })*/
     //////////////////사용자 입력////////////
-router.put('/device', async function(req, res) {
+router.post('/device', async function(req, res) {
         try {
             await logs(req, "add a device")
             let query = 'select * from user where serial = ?'

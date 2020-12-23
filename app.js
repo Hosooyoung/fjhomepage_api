@@ -32,13 +32,13 @@ var connection = mysql.createConnection({
     database: 'fjbox_homepage'
 });
 
+app.use('/', fjboxRouter);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json());
-app.use('/fjbox', fjboxRouter);
 app.use('/user', fjbox_user_Router);
 app.use('/login', fjbox_login_Router);
 app.use('/device', fjbox_device_Router);
