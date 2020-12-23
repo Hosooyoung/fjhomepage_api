@@ -38,7 +38,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json());
-app.use('/', fjboxRouter);
+app.use('/fjbox', fjboxRouter);
 app.use('/user', fjbox_user_Router);
 app.use('/login', fjbox_login_Router);
 app.use('/device', fjbox_device_Router);
