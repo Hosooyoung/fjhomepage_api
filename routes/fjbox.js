@@ -23,7 +23,7 @@ function makeToken(obj, expires) {
    로그남기기 함수
  */
 router.get('/', function(req, res) {
-    res.redirect('http://fjbox.jinong.co.kr/main')
+    res.redirect('/Main')
 });
 
 async function logs(req, fname) {
