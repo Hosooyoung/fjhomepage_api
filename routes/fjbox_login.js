@@ -39,7 +39,7 @@ async function logs(req, fname) {
         return false
     }
 }
-/////////////조사자 로그인 /////////////////////////////////////
+////////////////////////
 router.post('/investigatorLogin', async function(req, res) {
     try {
         await logs(req, "investigatorLogin")
@@ -96,52 +96,6 @@ router.post('/login', async function(req, res) {
             res.status(500).send(error)
         }
     })
-    //////////////장비추가 //////////////////
-router.post('/addDevice', async function(req, res) {
-        try {
-            await logs(req, "add a device")
-            let query = 'select * from user where serial = ?'
-            const [result] = await pool.query(query, [req.body.serial])
-            if (result.length > 0) {
-                throw new Error("같은 serial이 존재 합니다")
-            } else {
-                query = 'insert into user (url, port, uuid, serial) values (?, ?, ?, ?)'
-                const [insertResult] = await pool.query(query, [req.body.url, req.body.port, req.body.uuid, req.body.serial])
-
-                if (insertResult.affectedRows === 1) {
-                    res.status(200).end()
-                } else {
-                    throw new Error("장비 추가 실패 하였습니다")
-                }
-            }
-        } catch (error) {
-            console.log(error)
-            res.status(500).send(error)
-        }
-    })
-    //////////////////사용자 입력////////////
-router.put('/device', async function(req, res) {
-        try {
-            await logs(req, "add a device")
-            let query = 'select * from user where serial = ?'
-            const [result] = await pool.query(query, [req.body.serial])
-            if (result.length > 0) {
-                throw new Error("같은 serial이 존재 합니다")
-            } else {
-                query = 'insert into user (url, port, uuid, serial) values (?, ?, ?, ?)'
-                const [insertResult] = await pool.query(query, [req.body.url, req.body.port, req.body.uuid, req.body.serial])
-
-                if (insertResult.affectedRows === 1) {
-                    res.status(200).end()
-                } else {
-                    throw new Error("장비 추가 실패 하였습니다")
-                }
-            }
-        } catch (error) {
-            console.log(error)
-            res.status(500).send(error)
-        }
-    })
     //////////////////비밀번호 확인//////////////////
 
 router.post('/check_pw', async function(req, res) {
@@ -175,27 +129,4 @@ router.post('/mod_pw', async function(req, res) {
         }
     })
     ///////////////////////////////////////////
-router.put('/user', async function(req, res) {
-        try {
-            await logs(req, "add a user")
-            let query = 'select * from user where id = ?'
-            const [result] = await pool.query(query, [req.body.id])
-            if (result.length > 0) {
-                throw new Error("같은 id가 존재 합니다")
-            } else {
-                query = 'update user set id = ?, pw = password(?) where serial = ?'
-                const [updateResult] = await pool.query(query, [req.body.id, req.body.pw, req.body.serial])
-
-                if (updateResult.affectedRows === 1) {
-                    res.status(200).end()
-                } else {
-                    throw new Error("사용자 정보 입력 실패 하였습니다")
-                }
-            }
-        } catch (error) {
-            console.log(error)
-            res.status(500).send(error)
-        }
-    })
-    /////////////////////////////////////////
 module.exports = router;

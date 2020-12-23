@@ -477,6 +477,7 @@ router.get('/getSearchJoinList:search', function(req, res, next) {
     sql = "SELECT  count(*) cnt FROM users WHERE " + option + " LIKE '%" + search + "%' and user_auth=4";
     connection.query(sql, (err, data) => {
         if (err) throw err;
+
         if (data[0].cnt == 0) {
             res.send({ success: false });
         } else {
