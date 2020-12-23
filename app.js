@@ -12,13 +12,15 @@ var usersRouter = require('./routes/users');
 var infoRouter = require('./routes/info');
 var boardRouter = require('./routes/board');
 var mainRouter = require('./routes/main');
+
 const cors = require('cors');
 var app = express();
+app.use('/', fjboxRouter);
 app.use(cors({ origin: true, credentials: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.use('/', fjboxRouter);
+
 app.set('view engine', 'pug');
 app.use(require('connect-history-api-fallback')());
 var debug = require('debug')('svr:server');
