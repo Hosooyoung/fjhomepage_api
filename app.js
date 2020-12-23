@@ -12,15 +12,13 @@ var usersRouter = require('./routes/users');
 var infoRouter = require('./routes/info');
 var boardRouter = require('./routes/board');
 var mainRouter = require('./routes/main');
-var fjbox_user_Router = require('./routes/fjbox_user');
-var fjbox_login_Router = require('./routes/fjbox_login');
-var fjbox_device_Router = require('./routes/fjbox_device');
 const cors = require('cors');
 var app = express();
 app.use(cors({ origin: true, credentials: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+app.use('/', fjboxRouter);
 app.set('view engine', 'pug');
 app.use(require('connect-history-api-fallback')());
 var debug = require('debug')('svr:server');
@@ -32,16 +30,12 @@ var connection = mysql.createConnection({
     database: 'fjbox_homepage'
 });
 
-app.use('/fjbox', fjboxRouter);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json());
-app.use('/user', fjbox_user_Router);
-app.use('/login', fjbox_login_Router);
-app.use('/device', fjbox_device_Router);
 app.use('/users', usersRouter);
 app.use('/info', infoRouter);
 app.use('/board', boardRouter);

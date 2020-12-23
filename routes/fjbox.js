@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+
 const jwt = require('jsonwebtoken')
 const sharedSecret = 'jinong.co.kr&opensource'
 const mysql = require('mysql2/promise')
@@ -22,9 +23,9 @@ function makeToken(obj, expires) {
    로그남기기 함수
  */
 router.get('/', function(req, res) {
-    //res.render("localhost:9090/main")
     res.redirect('/main')
 });
+
 async function logs(req, fname) {
     try {
         const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
