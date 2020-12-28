@@ -15,7 +15,7 @@ var mainRouter = require('./routes/main');
 
 const cors = require('cors');
 var app = express();
-app.use('/', fjboxRouter);
+//app.use('/fjbox', fjboxRouter);
 app.use(cors({ origin: true, credentials: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
 // view engine setup
@@ -35,13 +35,17 @@ var connection = mysql.createConnection({
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/uploads', express.static('uploads'));
+
+app.use('/uploads', express.static('uploads'))
+
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/',fjboxRouter);
 app.use('/users', usersRouter);
 app.use('/info', infoRouter);
 app.use('/board', boardRouter);
 app.use('/main', mainRouter);
+//app.use(express.static(path.join(__dirname, 'public')));
 ///////////////////sessionSet//////////////////////////////
 app.use(session({
     secret: 'secret',
