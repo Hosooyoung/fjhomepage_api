@@ -40,7 +40,7 @@ app.use('/uploads', express.static('uploads'))
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/',fjboxRouter);
+app.use('/', fjboxRouter);
 app.use('/users', usersRouter);
 app.use('/info', infoRouter);
 app.use('/board', boardRouter);
@@ -73,6 +73,7 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+server.timeout = 300000;
 
 function normalizePort(val) {
     var port = parseInt(val, 10);

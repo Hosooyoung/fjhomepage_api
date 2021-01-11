@@ -28,7 +28,7 @@ router.get('/', function(req, res) {
 
 async function logs(req, fname) {
     try {
-	
+
         const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
         const content = { "functions": fname, "IP": ip, "req": req.body }
         const query = "insert into logs(logtime, content) values(now(), ?)"
@@ -77,10 +77,10 @@ router.post('/investigatorLogin', async function(req, res) {
 //////////////////////////////////////////////////////////////////
 router.post('/login', async function(req, res) {
         try {
-		console.log("try");
-		
-		console.log("id"+req.body.id);
-		console.log('pw'+req.body.pw);
+            console.log("try");
+
+            console.log("id" + req.body.id);
+            console.log('pw' + req.body.pw);
             await logs(req, "login")
             const query = 'select * from user where id = ? and pw = password(?)'
             const [result] = await pool.query(query, [req.body.id, req.body.pw])

@@ -12,7 +12,6 @@ var connection = mysql.createConnection({
     password: 'farmosv2@',
     database: 'fjbox_homepage'
 });
-
 let storage = multer.diskStorage({
     destination: function(req, file, callback) {
         callback(null, "uploads/")
