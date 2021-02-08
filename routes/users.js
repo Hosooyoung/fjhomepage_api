@@ -144,8 +144,6 @@ router.post('/modAcc', function(req, res) {
 router.post('/check_pass', function(req, res) {
     var id = req.body.id;
     var password = req.body.password;
-    console.log(id);
-    console.log(password);
     connection.query('SELECT id, user_password FROM users WHERE id = "' + id + '"', function(err, row) {
         if (err) throw err;
         if (row[0] == undefined) {
@@ -525,4 +523,14 @@ router.post('/reset_pw', function(req, res) {
     })
 
 });
+///////////////////////////////////
+router.post('/get_newJoin', function(req, res) {
+    sql = "SELECT  count(*) cnt FROM users WHERE user_auth=4";
+    connection.query(sql, (err, data) => {
+        if (err) throw err;
+        res.send({ success: true, count: data[0].cnt });
+    })
+
+});
+///////////////////////////////////////////////
 module.exports = router;
